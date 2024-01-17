@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Programming\\FullStack\\User-Projects-TimeLogs\\backend\\UserProjects\\UserProjects.csproj": {}
+    "C:\\Programming\\FullStack\\User-Projects-TimeLogs\\backend\\UserProjects\\UserProjects.csproj": {}
   },
   "projects": {
-    "c:\\Programming\\FullStack\\User-Projects-TimeLogs\\backend\\UserProjects\\UserProjects.csproj": {
+    "C:\\Programming\\FullStack\\User-Projects-TimeLogs\\backend\\UserProjects\\UserProjects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Programming\\FullStack\\User-Projects-TimeLogs\\backend\\UserProjects\\UserProjects.csproj",
+        "projectUniqueName": "C:\\Programming\\FullStack\\User-Projects-TimeLogs\\backend\\UserProjects\\UserProjects.csproj",
         "projectName": "UserProjects",
-        "projectPath": "c:\\Programming\\FullStack\\User-Projects-TimeLogs\\backend\\UserProjects\\UserProjects.csproj",
+        "projectPath": "C:\\Programming\\FullStack\\User-Projects-TimeLogs\\backend\\UserProjects\\UserProjects.csproj",
         "packagesPath": "C:\\Users\\Axl\\.nuget\\packages\\",
-        "outputPath": "c:\\Programming\\FullStack\\User-Projects-TimeLogs\\backend\\UserProjects\\obj\\",
+        "outputPath": "C:\\Programming\\FullStack\\User-Projects-TimeLogs\\backend\\UserProjects\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Axl\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -41,6 +41,22 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
