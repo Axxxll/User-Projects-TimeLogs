@@ -8,8 +8,13 @@ public class SeedRepository : ISeedRepository
         _context = context;
     }
 
-    public bool ClearData()
+    public bool IsEmptyOrClearData()
     {
+
+        if(!_context.TimeLogs.Any())
+        {
+            return true;
+        }
         _context.Users.RemoveRange(_context.Users);
         _context.Projects.RemoveRange(_context.Projects);
         _context.TimeLogs.RemoveRange(_context.TimeLogs);
@@ -25,7 +30,7 @@ public class SeedRepository : ISeedRepository
 
     public bool Seed()
     {
-        if (!ClearData())
+        if (!IsEmptyOrClearData())
         {
             return false;
         }
@@ -42,6 +47,7 @@ public class SeedRepository : ISeedRepository
         var domains = new List<string>()
         {"hotmail.com", "gmail.com", "live.com"};
 
+        // Generate Users
         var users = new List<User>();
 
         for (int i = 0; i < 100; i++)
@@ -59,20 +65,59 @@ public class SeedRepository : ISeedRepository
 
             users.Add(user);
 
-            // _context.Users.AddRange(user);
         }
 
-        _context.Users.AddRange(users);
+        //Generate Projects
+        List<Project> projects = new List<Project>
+            {
+                new Project { Id = 1, Name = "My own" },
+                new Project { Id = 2, Name = "Work" },
+                new Project { Id = 3, Name = "Free time" }
+            };
 
-        // var projects = new List<string>()
-        // {
-        //     "My own", "Free Time", "Work"
-        // };
+        //Generate TimeLogs
+        List<TimeLog> timeLogs = new List<TimeLog>();
 
-        // for (int i = 0; i < 3; i++)
-        // {
+        DateTime startDate = DateTime.Now.AddDays(-100); 
 
-        // }
+        Dictionary<int, Dictionary<DateTime, float>> userHours = new Dictionary<int, Dictionary<DateTime, float>>();
+
+        foreach (var user in users)
+        {
+            userHours[user.Id] = new Dictionary<DateTime, float>();
+
+            int entries = random.Next(1, 20);
+            for (int i = 0; i < entries; i++)
+            {
+                Project project = projects[random.Next(projects.Count)];
+
+                DateTime entryDate = startDate.AddDays(random.Next(0, 101)); 
+
+                if (!userHours[user.Id].ContainsKey(entryDate))
+                {
+                    userHours[user.Id][entryDate] = 0;
+                }
+
+                float hoursWorked = (float)Math.Round(random.NextDouble() * (Math.Min(8.00, 8.00 - userHours[user.Id][entryDate]) - 0.25) + 0.25, 2);
+
+                userHours[user.Id][entryDate] += hoursWorked;
+
+                TimeLog timeLog = new TimeLog
+                {
+                    User = user,
+                    UserId = user.Id,
+                    Project = project,
+                    ProjectId = project.Id,
+                    HoursWorked = hoursWorked,
+                    Date = entryDate
+                };
+
+                timeLogs.Add(timeLog);
+            }
+        }
+
+        _context.TimeLogs.AddRange(timeLogs);
+
         return Save();
     }
 }

@@ -26,6 +26,6 @@ public class SeedController : Controller
             return BadRequest(ModelState);
         }
 
-        return Ok("Database was reset successfully");
+        return Ok("Database was reset successfully!");
     }
 }
