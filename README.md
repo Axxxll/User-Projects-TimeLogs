@@ -1,7 +1,7 @@
 # User-Projects-TimeLogs
 
 An app design to display users with different projects and the time invested in them.
-App is still under development and has a lot of fetures missing.
+App is still under development and has a lot of features missing.
 
 # Set up
 
