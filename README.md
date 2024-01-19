@@ -5,9 +5,9 @@ App is still under development and has a lot of fetures missing.
 
 # Set up
 
-The app uses .Net Web Api for backend, Angular for frontend and MySql for a db.
+The app uses .Net Web Api for the Backend, Angular for the Frontend and MySql for a the DB.
 
-## Setting up the Backend and MySql
+### Setting up the Backend and MySql
 
 1. Navigate to UserProject
    <br/>
