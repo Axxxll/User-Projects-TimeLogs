@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 [Route("app/[controller]")]
+[ApiController]
 public class UserController : Controller
 {
     private readonly IUserRepository _userRepository;
@@ -42,5 +43,18 @@ public class UserController : Controller
         return Ok(user);
     }
 
+    [HttpGet("topTen")]
+    [ProducesResponseType(200, Type = typeof(IEnumerable<User>))]
+    public async Task<IActionResult> GetTopTenUsers() 
+    {
+        var topUsers = await _userRepository.GetTopTenUsers();
+
+        if(!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        return Ok(topUsers);
+    }
 
 }

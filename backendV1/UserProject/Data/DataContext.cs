@@ -11,16 +11,16 @@ public class DataContext : DbContext
     public DbSet<Project> Projects { get; set; }
     public DbSet<TimeLog> TimeLogs { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<User>()
-        .HasMany(u => u.TimeLogs)
-        .WithOne(t => t.User)
-        .HasForeignKey(t => t.UserId);
+    // protected override void OnModelCreating(ModelBuilder modelBuilder)
+    // {
+    //     modelBuilder.Entity<User>()
+    //     .HasMany(u => u.TimeLogs)
+    //     .WithOne(t => t.User)
+    //     .HasForeignKey(t => t.UserId);
 
-        modelBuilder.Entity<Project>()
-            .HasMany(p => p.TimeLogs)
-            .WithOne(t => t.Project)
-            .HasForeignKey(t => t.ProjectId);
-    }
+    //     modelBuilder.Entity<Project>()
+    //         .HasMany(p => p.TimeLogs)
+    //         .WithOne(t => t.Project)
+    //         .HasForeignKey(t => t.ProjectId);
+    // }
 }

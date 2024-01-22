@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 [Route("app/[controller]")]
+[ApiController]
 public class SeedController : Controller
 {
 
