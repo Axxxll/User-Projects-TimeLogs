@@ -57,4 +57,18 @@ public class UserController : Controller
         return Ok(topUsers);
     }
 
+    [HttpGet("usersTimeLogs")]
+    [ProducesResponseType(200, Type = typeof(IEnumerable<UsersTimeLogsDto>))]
+    public IActionResult GetUserTimeLogs([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10) 
+    {
+        var usersTimeLogs = _userRepository.GetUserTimeLogs(pageNumber, pageSize);
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        return Ok(usersTimeLogs);
+    }
+
 }
