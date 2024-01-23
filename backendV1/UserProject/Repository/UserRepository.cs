@@ -12,7 +12,7 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async Task<ICollection<User>> GetTopTenUsers()
+    public async Task<ICollection<UserWithTotalHoursWorkedDto>> GetTopTenUsers()
     {
 
         var usersWithHours = await _context.Users
@@ -21,10 +21,16 @@ public class UserRepository : IUserRepository
 
         var topUsers = usersWithHours
             .GroupBy(ut => ut.User.Id)
-            .Select(g => new { User = g.First().User, TotalHours = g.Sum(x => x.HoursWorked) })
+            .Select(g => new UserWithTotalHoursWorkedDto
+            {
+                Id = g.First().User.Id,
+                FirstName = g.First().User.FirstName,
+                LastName = g.First().User.LastName,
+                Email = g.First().User.Email,
+                TotalHours = g.Sum(x => x.HoursWorked)
+            })
             .OrderByDescending(g => g.TotalHours)
             .Take(10)
-            .Select(g => g.User)
             .ToList();
 
         return topUsers;
@@ -44,20 +50,20 @@ public class UserRepository : IUserRepository
     {
 
         var allUserTimelogs = _context.Users
-        .Join(_context.TimeLogs, u => u.Id, t => t.UserId, (u, t) => new {u, t})
-        .Join(_context.Projects, ut => ut.t.ProjectId, p => p.Id, (ut, p) => new {ut.u, ut.t, p})
-        .GroupBy(utp => new {utp.u.Id, utp.t.ProjectId, utp.t.Date})
+        .Join(_context.TimeLogs, u => u.Id, t => t.UserId, (u, t) => new { u, t })
+        .Join(_context.Projects, ut => ut.t.ProjectId, p => p.Id, (ut, p) => new { ut.u, ut.t, p })
+        .GroupBy(utp => new { utp.u.Id, utp.t.ProjectId, utp.t.Date })
         .OrderByDescending(g => g.Key.Date)
         .Select(g => new UsersTimeLogsDto
-            {
-                UserId = g.Key.Id,
-                FullName = g.First().u.FirstName + " " + g.First().u.LastName,
-                Email = g.First().u.Email,
-                ProjectId = g.Key.ProjectId,
-                ProjectName = g.First().p.Name,
-                Date = g.Key.Date,
-                HoursWorked = g.Sum(x => x.t.HoursWorked)
-            }
+        {
+            UserId = g.Key.Id,
+            FullName = g.First().u.FirstName + " " + g.First().u.LastName,
+            Email = g.First().u.Email,
+            ProjectId = g.Key.ProjectId,
+            ProjectName = g.First().p.Name,
+            Date = g.Key.Date,
+            HoursWorked = g.Sum(x => x.t.HoursWorked)
+        }
         )
         .ToList();
 
