@@ -12,7 +12,7 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async Task<ICollection<UserWithTotalHoursWorkedDto>> GetTopTenUsers()
+    public async Task<ICollection<UserWithTotalHoursDto>> GetTopTenUsers()
     {
 
         var usersWithHours = await _context.Users
@@ -21,7 +21,7 @@ public class UserRepository : IUserRepository
 
         var topUsers = usersWithHours
             .GroupBy(ut => ut.User.Id)
-            .Select(g => new UserWithTotalHoursWorkedDto
+            .Select(g => new UserWithTotalHoursDto
             {
                 Id = g.First().User.Id,
                 FirstName = g.First().User.FirstName,
